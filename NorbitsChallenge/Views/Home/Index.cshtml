@@ -1,0 +1,84 @@
+﻿@model HomeModel
+@{
+
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>
+    Firma: @Model.CompanyName
+</h2>
+<form asp-action="CarView" asp-controller="Cars" class="bg-info">
+    <p>Skriv inn skiltnummeret du søker etter</p>
+    <input type="text" onClick="clearText(this)" name="licensePlate" value="Skiltnummer" />
+    <input type="submit" value="søk" />
+</form>
+<form asp-action="CarViewList" asp-controller="Cars" asp-route-companyId="@Model.CompanyId" class="bg-info">
+    <input type="submit" value="Søk etter alle biler registrert hos @Model.CompanyName" />
+</form>
+
+<form asp-action="ChangeCompany" asp-controller="Home" class="bg-info">
+
+    <!-- <p>Velg 1 for biltunet, 2 for taubaneservice eller 3 for HMV</p> -->
+    <input type="text" onClick="clearText(this)" name="newUser" value="BrukerId" />
+    <input type="submit" value="Bytt bruker/firma" />
+</form>
+
+
+<form asp-action="AddCarToTable" asp-controller="Home" asp-route-companyId="@Model.CompanyId" class="bg-info">
+
+    <h2>Legg til en ny Bil</h2>
+    <p>Reg.nr:</p> <input type="text" onClick="clearText(this)" name="newLicense" value="Reg.nr" />
+    
+    <p>Antall dekk lagret:</p> <input type="text" onClick="clearText(this)" name="newTireCount" value="Dekk på lager" />
+    
+    <p>Merke:</p> <input type="text" onClick="clearText(this)" name="brand" value="Merke" />
+     
+    <p>Modell:</p> <input type="text" onClick="clearText(this)" name="model" value="Modell" />
+     
+    <p>Beskrivelse:</p> <input type="text" onClick="clearText(this)" name="description" value="Beskrivelse" />
+    
+    <input type="submit" value="Lagre bil i db" />
+</form>
+
+<form asp-action="RemoveCarFromTable" asp-controller="Home" class="bg-info">
+    <h2>Slett bil fra systemet</h2>
+    <p>Reg.nr:</p>
+    <input type="text" onClick="clearText(this)" name="carLicense" value="Reg.nr"/>
+    <input type="submit" value="Slett bil fra db"/>
+</form>
+
+<form asp-action="UpdateCarInfo" asp-controller="Home" class="bg-info">
+    <h2>Endre antall dekk på lager for bil</h2>
+    <p>Reg.nr.</p>
+    <input type="text" onClick="clearText(this)" name="carLicense" />
+    <p>Antall dekk på lager</p>
+    <input type="text" onClick="clearText(this)" name="newTireCount" />
+    <p>Merke</p>
+    <input type="text" onClick="clearText(this)" name="brand" value="Merke" />
+    <p>Modell</p>
+    <input type="text" onClick="clearText(this)" name="model" value="Modell" />
+    <p>Beskrivelse</p>
+    <input type="text" onClick="clearText(this)" name="description" value="Beskrivelse" />
+    <input type="submit" value="Oppdater bil" />
+</form>
+
+
+
+<hr/>
+<h4>Gå til <a asp-action="Index" asp-controller="Settings" asp-route-companyId="@Model.CompanyId">Innstillinger</a></h4>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function onSuccess(data) {
+            var tireCount = data.tireCount;
+            $('#tireCount').text(tireCount);
+            $('#tireInfo').removeClass('hidden');
+        }
+    </script>
+    <script type="text/javascript">
+        function clearText(source) {
+            source.value = "";
+        }
+    </script>
+}

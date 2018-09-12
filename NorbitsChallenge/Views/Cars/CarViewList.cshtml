@@ -1,0 +1,42 @@
+﻿@model CarsViewModel
+<h2>Viser biler lagt til av @Model.companyName</h2>
+
+    <table>
+        <tr>
+            <th>
+                <p class="col-sm-8">LicensePlate </p>
+            </th>
+            <th>
+                <p class="col-sm-12">Tires in Storage </p>
+            </th>
+            <th>
+                <p class="col-sm-8">Model </p>
+            </th>
+            <th>
+                <p class="col-sm-8">Brand </p>
+            </th>
+            <th>
+                <p class="col-sm-12">Description </p>
+            </th>
+        </tr>
+        @foreach (var car in Model.Cars) {
+        <tr>
+            <td>
+                <p class="col-sm-8"> @car.LicensePlate </p>
+            </td>
+            <td>
+                <p class="col-sm-2">@car.TireCount</p>
+            </td>
+            <td>
+                <p class="col-sm-2">@car.Model</p>
+            </td>
+            <td>
+                <p class="col-sm-2">@car.Brand</p>
+            </td>
+            <td>
+                <p class="col-sm-12">@car.Description</p>
+            </td>
+        </tr>
+        }
+    </table>
+
